@@ -11,7 +11,7 @@ const Student = () => {
     const [display, setDisplay] = useState("list");
 
     const getElement = async () => {
-        const response = await fetch('https://prevexam.dece.nycu.edu.tw:6789/api/get_element', {
+        const response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_element', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

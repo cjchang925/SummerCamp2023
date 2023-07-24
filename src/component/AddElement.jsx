@@ -16,7 +16,7 @@ const AddElement = () => {
             alert('請填寫第幾小隊！');
             return;
         }
-        await fetch('https://prevexam.dece.nycu.edu.tw:6789/api/add_element', {
+        await fetch('https://prevexam.dece.nycu.edu.tw/api/add_element', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
