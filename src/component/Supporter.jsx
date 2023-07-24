@@ -16,6 +16,21 @@ const Supporter = () => {
     const [nowEditing, setNowEditing] = useState(0);
     const [supporterName, setSupporterName] = useState("");
     const [trigger, setTrigger] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        // Add event listener to update windowWidth on resize
+        window.addEventListener('resize', handleResize);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const getElement = async () => {
         const response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_element', {
@@ -71,7 +86,7 @@ const Supporter = () => {
             <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
                 <Container>
                     <Navbar.Brand>
-                        <img src='makercamp.png' width={100} style={{ marginRight: '20px' }}/>
+                        <img src='makercamp.png' width={100} style={{ marginRight: '20px' }} />
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -84,13 +99,13 @@ const Supporter = () => {
                 </Container>
             </Navbar>
             {display === 'list' ?
-                <Table className="mt-4 mb-4" striped bordered style={{ width: '80vw', margin: 'auto' }}>
+                <Table className="mt-4 mb-4" striped bordered style={{ width: windowWidth > 900 ? '80vw' : '100vw', margin: 'auto' }}>
                     <thead>
                         <tr>
                             <th>小隊</th>
-                            <th>材料名稱</th>
-                            <th>材料圖片</th>
-                            <th>材料個數</th>
+                            <th>名稱</th>
+                            {windowWidth > 900 ? <th>圖片</th> : <></>}
+                            <th>個數</th>
                             <th>預計花費</th>
                             <th>備註</th>
                             <th>負責隊輔</th>
@@ -100,25 +115,35 @@ const Supporter = () => {
                     </thead>
                     <tbody>
                         {list.map((ele, id) => (
-                            <tr key={id} style={{ backgroundColor: 'red' }}>
-                                <td>{ele.team}</td>
-                                <td>{ele.name}</td>
-                                <td><img src={ele.imageLink} alt='invalid image' width={500} /></td>
-                                <td>{ele.number}</td>
-                                <td>{ele.price}</td>
-                                <td>{ele.comment}</td>
-                                <td>{ele.supporter}</td>
-                                <td><Button id={id} size='sm' onClick={handleAddSupporter}>新增隊輔</Button></td>
-                                <td>
-                                    <Form.Check
-                                        name={id}
-                                        type="checkbox"
-                                        checked={ele.done === 'true' ? true : false}
-                                        label={ele.done === 'true' ? '已採購' : '未採購'}
-                                        onChange={handlePurchase}
-                                    />
-                                </td>
-                            </tr>
+                            <>
+                                <tr key={id}>
+                                    <td>{ele.team}</td>
+                                    <td>{ele.name}</td>
+                                    {windowWidth > 900 ? <td style={{ width: '40%' }}><img src={ele.imageLink} alt='invalid image' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
+                                    <td>{ele.number}</td>
+                                    <td>{ele.price}</td>
+                                    <td>{ele.comment}</td>
+                                    <td>{ele.supporter}</td>
+                                    <td><Button id={id} size='sm' onClick={handleAddSupporter}>New</Button></td>
+                                    <td>
+                                        <Form.Check
+                                            name={id}
+                                            type="checkbox"
+                                            checked={ele.done === 'true' ? true : false}
+                                            onChange={handlePurchase}
+                                        />
+                                    </td>
+                                </tr>
+                                {windowWidth <= 900 ?
+                                    <tr>
+                                        <td colSpan={8}>
+                                            <img src={ele.imageLink} alt='invalid image' style={{ width: '100%' }} />
+                                        </td>
+                                    </tr>
+                                    :
+                                    <></>
+                                }
+                            </>
                         ))}
                     </tbody>
                     <div style={{ height: '30px' }}></div>

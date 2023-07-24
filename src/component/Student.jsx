@@ -5,6 +5,8 @@ import Nav from 'react-bootstrap/Nav';
 import './Welcome.css'
 import Table from 'react-bootstrap/Table';
 import AddElement from "./AddElement";
+import { AiOutlineCheck } from 'react-icons/ai'
+import { RxCross2 } from 'react-icons/rx'
 
 const Student = () => {
     const [list, setList] = useState([]);
@@ -47,9 +49,9 @@ const Student = () => {
                     <thead>
                         <tr>
                             <th>小隊</th>
-                            <th>材料名稱</th>
-                            <th>材料圖片</th>
-                            <th>材料個數</th>
+                            <th>名稱</th>
+                            <th>圖片</th>
+                            <th>個數</th>
                             <th>預計花費</th>
                             <th>備註</th>
                             <th>負責隊輔</th>
@@ -61,12 +63,12 @@ const Student = () => {
                             <tr key={id}>
                                 <td>{ele.team}</td>
                                 <td>{ele.name}</td>
-                                <td><img src={ele.imageLink} alt='invalid image' width={500} /></td>
+                                <td style={{ width: '40%' }}><img src={ele.imageLink} alt='invalid image' style={{ width: '100%', minWidth: '70px' }} /></td>
                                 <td>{ele.number}</td>
                                 <td>{ele.price}</td>
                                 <td>{ele.comment}</td>
                                 <td>{ele.supporter}</td>
-                                <td>{ele.done === 'true' ? '已採購' : '尚未採購'}</td>
+                                <td>{ele.done === 'true' ? <AiOutlineCheck color='green'/> : <RxCross2 color='red'/>}</td>
                             </tr>
                         ))}
                     </tbody>
