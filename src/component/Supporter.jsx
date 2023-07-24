@@ -86,7 +86,7 @@ const Supporter = () => {
             <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
                 <Container>
                     <Navbar.Brand>
-                        <img src='makercamp.png' width={100} style={{ marginRight: '20px' }} />
+                        <img src='makercamp.png' alt='' width={100} style={{ marginRight: '20px' }} />
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -119,7 +119,7 @@ const Supporter = () => {
                                 <tr key={id}>
                                     <td>{ele.team}</td>
                                     <td>{ele.name}</td>
-                                    {windowWidth > 900 ? <td style={{ width: '40%' }}><img src={ele.imageLink} alt='invalid image' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
+                                    {windowWidth > 900 ? <td style={{ width: '40%' }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
                                     <td>{ele.number}</td>
                                     <td>{ele.price}</td>
                                     <td>{ele.comment}</td>
@@ -137,7 +137,7 @@ const Supporter = () => {
                                 {windowWidth <= 900 ?
                                     <tr>
                                         <td colSpan={8}>
-                                            <img src={ele.imageLink} alt='invalid image' style={{ width: '100%' }} />
+                                            <img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} />
                                         </td>
                                     </tr>
                                     :
