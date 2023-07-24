@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  height: 100vh;
 }
 
 .App-logo {
@@ -12,6 +12,8 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700&family=Raleway:ital,wght@1,400;1,700&display=swap');
 
 .App-header {
   background-color: #282c34;
