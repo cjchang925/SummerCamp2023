@@ -18,7 +18,7 @@ const Supporter = () => {
     const [trigger, setTrigger] = useState(false);
 
     const getElement = async () => {
-        const response = await fetch('http://140.113.160.136:6789/api/get_element', {
+        const response = await fetch('https://prevexam.dece.nycu.edu.tw:6789/api/get_element', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ const Supporter = () => {
             return;
         }
         setShowModal(false);
-        await fetch('http://140.113.160.136:6789/api/add_supporter', {
+        await fetch('https://prevexam.dece.nycu.edu.tw:6789/api/add_supporter', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ const Supporter = () => {
     }
 
     const handlePurchase = async (e) => {
-        await fetch('http://140.113.160.136:6789/api/done', {
+        await fetch('https://prevexam.dece.nycu.edu.tw:6789/api/done', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
