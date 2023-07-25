@@ -7,6 +7,15 @@ import Table from 'react-bootstrap/Table';
 import AddElement from "./AddElement";
 import { AiOutlineCheck } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx'
+import Alert from 'react-bootstrap/Alert';
+
+const colorMap = {
+    '1': '#f3caf4',
+    '2': 'rgb(204,240,255)',
+    '3': 'rgb(205,241,203)',
+    '4': '#f6f87e',
+    '5': '#fabcaa'
+}
 
 const Student = () => {
     const [list, setList] = useState([]);
@@ -74,6 +83,15 @@ const Student = () => {
             </Navbar>
             {display === 'list' ?
                 <>
+                    <Alert variant="success" className="mt-4" style={{ width: '80vw', margin: 'auto' }}>
+                        <Alert.Heading>注意事項</Alert.Heading>
+                        <hr />
+                        <p style={{ lineHeight: '30px' }}>
+                            購買材料之前，"花費"欄位會顯示各小隊填寫的預計花費，購買之後則會顯示隊輔填寫的實際花費。
+                            <br/>
+                            Happy hacking!
+                        </p>
+                    </Alert>
                     <h4 style={{ marginLeft: '10vw', marginTop: '30px' }}>各小隊剩餘金額</h4>
                     {windowWidth > 900 ?
                         <Table className="mt-1" striped bordered hover style={{ width: '80vw', margin: 'auto' }}>
@@ -139,7 +157,7 @@ const Student = () => {
                             </tbody>
                         </Table>
                     }
-                    <Table className="mt-4" striped bordered hover style={{ width: '80vw', margin: 'auto' }}>
+                    <Table className="mt-4" bordered hover style={{ width: '80vw', margin: 'auto' }}>
                         <thead>
                             <tr>
                                 <th>小隊</th>
@@ -156,18 +174,18 @@ const Student = () => {
                             {list.map((ele, id) => (
                                 <>
                                     <tr key={id}>
-                                        <td style={{ backgroundColor: '#ccccff' }}>{ele.team}</td>
-                                        <td>{ele.name}</td>
-                                        {windowWidth > 900 ? <td style={{ width: '40%' }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
-                                        <td>{ele.number}</td>
-                                        <td>{ele.price}</td>
-                                        <td>{ele.comment}</td>
-                                        <td>{ele.supporter}</td>
-                                        <td>{ele.done === 'true' ? <AiOutlineCheck color='green' /> : <RxCross2 color='red' />}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.team}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.name}</td>
+                                        {windowWidth > 900 ? <td style={{ width: '40%', backgroundColor: colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.number}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.price}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.comment}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.supporter}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.done === 'true' ? <AiOutlineCheck color='green' /> : <RxCross2 color='red' />}</td>
                                     </tr>
                                     {windowWidth <= 900 ?
                                         <tr key={id}>
-                                            <td colSpan={8}>
+                                            <td colSpan={8} style={{ backgroundColor: colorMap[ele.importance] }}>
                                                 <img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} />
                                             </td>
                                         </tr>

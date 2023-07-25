@@ -9,6 +9,14 @@ import Modal from 'react-bootstrap/Modal';
 import './Welcome.css'
 import { Form } from "react-bootstrap";
 
+const colorMap = {
+    '1': '#f3caf4',
+    '2': 'rgb(204,240,255)',
+    '3': 'rgb(205,241,203)',
+    '4': '#f6f87e',
+    '5': '#fabcaa'
+}
+
 const Supporter = () => {
     const [list, setList] = useState([]);
     const [display, setDisplay] = useState("list");
@@ -48,7 +56,7 @@ const Supporter = () => {
     }, []);
 
     const getElement = async () => {
-        const response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_element', {
+        let response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_element', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -204,7 +212,7 @@ const Supporter = () => {
                             </tbody>
                         </Table>
                     }
-                    <Table className="mt-4 mb-4" striped bordered style={{ width: windowWidth > 900 ? '80vw' : '100vw', margin: 'auto' }}>
+                    <Table className="mt-4 mb-4" bordered style={{ width: windowWidth > 900 ? '80vw' : '100vw', margin: 'auto' }}>
                         <thead>
                             <tr>
                                 <th>小隊</th>
@@ -222,14 +230,14 @@ const Supporter = () => {
                             {list.map((ele, id) => (
                                 <>
                                     <tr key={id}>
-                                        <td>{ele.team}</td>
-                                        <td>{ele.name}</td>
-                                        {windowWidth > 900 ? <td style={{ width: '40%' }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
-                                        <td>{ele.number}</td>
-                                        <td>{ele.price}</td>
-                                        <td>{ele.comment}</td>
-                                        <td>{ele.supporter}</td>
-                                        <td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.team}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.name}</td>
+                                        {windowWidth > 900 ? <td style={{ width: '40%', backgroundColor: colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.number}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.price}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.comment}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.supporter}</td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>
                                             <Form.Check
                                                 name={id}
                                                 type="switch"
@@ -238,14 +246,14 @@ const Supporter = () => {
                                                 disabled={moneyLeft[parseInt(ele.team) - 1] <= 0 ? true : false}
                                             />
                                         </td>
-                                        <td>
+                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>
                                             <Button id={id} size='sm' onClick={handleAddSupporter} style={{ marginRight: '10px' }}>New</Button>
                                             <Button variant="warning" name={id} disabled={ele.done === 'true' ? false : true} id={(parseInt(ele.team) - 1).toString()} size='sm' className={windowWidth <= 900 && "mt-2"} onClick={handleAddCost}>Cost</Button>
                                         </td>
                                     </tr>
                                     {windowWidth <= 900 ?
                                         <tr key={id}>
-                                            <td colSpan={8}>
+                                            <td colSpan={8} style={{ backgroundColor: colorMap[ele.importance] }}>
                                                 <img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} />
                                             </td>
                                         </tr>
@@ -266,7 +274,7 @@ const Supporter = () => {
                     <Modal.Title>設定隊輔</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Control type='text' placeholder="填寫姓名" onChange={(e) => setSupporterName(e.target.value)} />
+                    <Form.Control autoFocus type='text' placeholder="填寫姓名" onChange={(e) => setSupporterName(e.target.value)} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -282,7 +290,7 @@ const Supporter = () => {
                     <Modal.Title>實際花費</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Control type='number' placeholder="花費" onChange={(e) => setCost(e.target.value)} />
+                    <Form.Control autoFocus type='number' placeholder="請填數字" onChange={(e) => setCost(e.target.value)} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
