@@ -22,7 +22,10 @@ const AddElement = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ team, name, imageLink, number, price, comment, supporter: "", done: 'false' })
-        }).then(() => alert('新增成功！可至購買清單確認圖片是否正常顯示。'))
+        }).then(() => {
+            alert('新增成功！可至購買清單確認圖片是否正常顯示。');
+            window.location.reload();
+        })
     }
 
     return (
