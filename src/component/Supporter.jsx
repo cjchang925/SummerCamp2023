@@ -213,7 +213,7 @@ const Supporter = () => {
                                 <th>個數</th>
                                 <th>花費</th>
                                 <th>備註</th>
-                                <th>負責隊輔</th>
+                                <th>採買隊輔</th>
                                 <th>購買狀況</th>
                                 <th>新增隊輔/實際花費</th>
                             </tr>
