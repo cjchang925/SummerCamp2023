@@ -230,14 +230,14 @@ const Supporter = () => {
                             {list.map((ele, id) => (
                                 <>
                                     <tr key={id}>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.team}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.name}</td>
-                                        {windowWidth > 900 ? <td style={{ width: '40%', backgroundColor: colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.number}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.price}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.comment}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.supporter}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.team}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.name}</td>
+                                        {windowWidth > 900 ? <td style={{ width: '40%', backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.number}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.price}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.comment}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.supporter}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
                                             <Form.Check
                                                 name={id}
                                                 type="switch"
@@ -246,14 +246,14 @@ const Supporter = () => {
                                                 disabled={moneyLeft[parseInt(ele.team) - 1] <= 0 ? true : false}
                                             />
                                         </td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
                                             <Button id={id} size='sm' onClick={handleAddSupporter} style={{ marginRight: '10px' }}>New</Button>
                                             <Button variant="warning" name={id} disabled={ele.done === 'true' ? false : true} id={(parseInt(ele.team) - 1).toString()} size='sm' className={windowWidth <= 900 && "mt-2"} onClick={handleAddCost}>Cost</Button>
                                         </td>
                                     </tr>
                                     {windowWidth <= 900 ?
                                         <tr key={id}>
-                                            <td colSpan={8} style={{ backgroundColor: colorMap[ele.importance] }}>
+                                            <td colSpan={8} style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
                                                 <img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} />
                                             </td>
                                         </tr>

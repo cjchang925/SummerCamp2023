@@ -89,6 +89,8 @@ const Student = () => {
                         <p style={{ lineHeight: '30px' }}>
                             購買材料之前，"花費"欄位會顯示各小隊填寫的預計花費，購買之後則會顯示隊輔填寫的實際花費。
                             <br/>
+                            各項目的底色表示重要程度，依照紅、黃、綠、藍、紫的順序排列，而灰色表示該小隊的預算已經花完。
+                            <br/>
                             Happy hacking!
                         </p>
                     </Alert>
@@ -174,18 +176,18 @@ const Student = () => {
                             {list.map((ele, id) => (
                                 <>
                                     <tr key={id}>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.team}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.name}</td>
-                                        {windowWidth > 900 ? <td style={{ width: '40%', backgroundColor: colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.number}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.price}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.comment}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.supporter}</td>
-                                        <td style={{ backgroundColor: colorMap[ele.importance] }}>{ele.done === 'true' ? <AiOutlineCheck color='green' /> : <RxCross2 color='red' />}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.team}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.name}</td>
+                                        {windowWidth > 900 ? <td style={{ width: '40%', backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.number}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.price}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.comment}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.supporter}</td>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.done === 'true' ? <AiOutlineCheck color='green' /> : <RxCross2 color='red' />}</td>
                                     </tr>
                                     {windowWidth <= 900 ?
                                         <tr key={id}>
-                                            <td colSpan={8} style={{ backgroundColor: colorMap[ele.importance] }}>
+                                            <td colSpan={8} style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
                                                 <img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} />
                                             </td>
                                         </tr>
