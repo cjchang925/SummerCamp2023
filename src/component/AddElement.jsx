@@ -30,7 +30,7 @@ const AddElement = () => {
             <Form className="mt-5" style={{ marginLeft: '20%', marginRight: '20%' }}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>第幾小隊</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setTeam(e.target.value)} />
+                    <Form.Control type="number" onChange={(e) => setTeam(e.target.value)} placeholder='請填數字 1~10'/>
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>材料名稱</Form.Label>
