@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AddElement = () => {
     const [team, setTeam] = useState("");
@@ -10,6 +10,7 @@ const AddElement = () => {
     const [price, setPrice] = useState("");
     const [comment, setComment] = useState("");
     const [importance, setImportance] = useState("");
+    const [moneyLeft, setMoneyLeft] = useState(0);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,6 +29,20 @@ const AddElement = () => {
             window.location.reload();
         })
     }
+
+    const getMoneyLeft = async () => {
+        const response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_money', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        setMoneyLeft(response);
+    }
+
+    useEffect(() => {
+        getMoneyLeft();
+    }, [team])
 
     return (
         <>
@@ -67,7 +82,7 @@ const AddElement = () => {
                     <Form.Label>備註</Form.Label>
                     <Form.Control type="text" onChange={(e) => setComment(e.target.value)} />
                 </Form.Group>
-                <Button variant="primary" className='mb-3' type="submit" onClick={handleSubmit}>
+                <Button variant="primary" disabled={moneyLeft[parseInt(team) - 1] > 0 ? false : true} className='mb-3' type="submit" onClick={handleSubmit}>
                     Submit
                 </Button>
             </Form>

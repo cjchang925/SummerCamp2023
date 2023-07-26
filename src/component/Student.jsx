@@ -83,8 +83,8 @@ const Student = () => {
             </Navbar>
             {display === 'list' ?
                 <>
-                    <Alert variant="success" className="mt-4" style={{ width: '80vw', margin: 'auto' }}>
-                        <Alert.Heading>注意事項</Alert.Heading>
+                    <Alert variant="warning" className="mt-4" style={{ width: '80vw', margin: 'auto' }}>
+                        <Alert.Heading>注意！</Alert.Heading>
                         <hr />
                         <p style={{ lineHeight: '30px' }}>
                             購買材料之前，"花費"欄位會顯示各小隊填寫的預計花費，購買之後則會顯示隊輔填寫的實際花費。
