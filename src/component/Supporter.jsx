@@ -213,7 +213,7 @@ const Supporter = () => {
                         </Table>
                     }
                     {windowWidth > 900 ?
-                        <Table className="mt-4 mb-4" bordered style={{ width: windowWidth > 900 ? '80vw' : '100vw', margin: 'auto' }}>
+                        <Table className="mt-4 mb-4" bordered style={{ width: '80vw', margin: 'auto' }}>
                             <thead>
                                 <tr>
                                     <th>時間</th>

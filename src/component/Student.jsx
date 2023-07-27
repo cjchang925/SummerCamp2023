@@ -192,7 +192,7 @@ const Student = () => {
                             <div style={{ height: '30px' }}></div>
                         </Table>
                         :
-                        <Table className="mt-4" bordered hover style={{ width: '80%', margin: 'auto' }} size='sm'>
+                        <Table className="mt-4" bordered hover style={{ width: '100%', margin: 'auto' }} size='sm'>
                             {list.map((ele, id) => (
                                 <>
                                     <thead key={id}>
