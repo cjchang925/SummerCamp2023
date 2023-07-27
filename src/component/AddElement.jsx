@@ -12,18 +12,41 @@ const AddElement = () => {
     const [importance, setImportance] = useState("");
     const [moneyLeft, setMoneyLeft] = useState(0);
 
+    const getCurrentTimeFormatted = () => {
+        const currentTime = new Date();
+
+        // Extracting the components
+        const month = String(currentTime.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are zero-based
+        const day = String(currentTime.getDate()).padStart(2, '0');
+        const hour = String(currentTime.getHours()).padStart(2, '0');
+        const minute = String(currentTime.getMinutes()).padStart(2, '0');
+
+        // Combining the components in the desired format
+        const formattedTime = `${month}/${day} ${hour}:${minute}`;
+
+        return formattedTime;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (team.length === 0) {
             alert('請填寫第幾小隊！');
             return;
         }
+
+        if (importance.length === 0 || importance === '0') {
+            alert('請填寫重要性！');
+            return;
+        }
+
+        const currentTime = getCurrentTimeFormatted();
+
         await fetch('https://prevexam.dece.nycu.edu.tw/api/add_element', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ team, name, imageLink, number, price, importance, comment, supporter: "", done: 'false' })
+            body: JSON.stringify({ team, name, imageLink, number, price, importance, comment, supporter: "", done: 'false', currentTime })
         }).then(() => {
             alert('新增成功！可至購買清單確認圖片是否正常顯示。');
             window.location.reload();

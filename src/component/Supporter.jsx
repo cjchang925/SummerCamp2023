@@ -212,27 +212,27 @@ const Supporter = () => {
                             </tbody>
                         </Table>
                     }
-                    <Table className="mt-4 mb-4" bordered style={{ width: windowWidth > 900 ? '80vw' : '100vw', margin: 'auto' }}>
-                        <thead>
-                            <tr>
-                                <th>小隊</th>
-                                <th>名稱</th>
-                                {windowWidth > 900 ? <th>圖片</th> : <></>}
-                                <th>個數</th>
-                                <th>花費</th>
-                                <th>備註</th>
-                                <th>採買隊輔</th>
-                                <th>購買狀況</th>
-                                <th>新增隊輔/實際花費</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {list.map((ele, id) => (
-                                <>
+                    {windowWidth > 900 ?
+                        <Table className="mt-4 mb-4" bordered style={{ width: windowWidth > 900 ? '80vw' : '100vw', margin: 'auto' }}>
+                            <thead>
+                                <tr>
+                                    <th>小隊</th>
+                                    <th>名稱</th>
+                                    <th>圖片</th>
+                                    <th>個數</th>
+                                    <th>花費</th>
+                                    <th>備註</th>
+                                    <th>採買隊輔</th>
+                                    <th>完成</th>
+                                    <th>功能</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {list.map((ele, id) => (
                                     <tr key={id}>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.team}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.name}</td>
-                                        {windowWidth > 900 ? <td style={{ width: '40%', backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
+                                        <td style={{ width: '30%', backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.number}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.price}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.comment}</td>
@@ -251,20 +251,73 @@ const Supporter = () => {
                                             <Button variant="warning" name={id} disabled={ele.done === 'true' ? false : true} id={(parseInt(ele.team) - 1).toString()} size='sm' className={windowWidth <= 900 && "mt-2"} onClick={handleAddCost}>Cost</Button>
                                         </td>
                                     </tr>
-                                    {windowWidth <= 900 ?
-                                        <tr key={id}>
-                                            <td colSpan={8} style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
-                                                <img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} />
-                                            </td>
+                                ))}
+                            </tbody>
+                            <div style={{ height: '30px' }}></div>
+                        </Table>
+                        :
+                        <Table className="mt-4" bordered hover style={{ width: '100%', margin: 'auto' }} size='sm'>
+                            {list.map((ele, id) => (
+                                <>
+                                    <thead key={id}>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>時間</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.currentTime}</td>
                                         </tr>
-                                        :
-                                        <></>
-                                    }
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>小隊</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.team}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>名稱</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>圖片</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} /></td>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>個數</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.number}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>花費</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.price}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>備註</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.comment}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>採買隊輔</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.supporter}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>完成</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
+                                                <Form.Check
+                                                    name={id}
+                                                    type="switch"
+                                                    checked={ele.done === 'true' ? true : false}
+                                                    onChange={handlePurchase}
+                                                    disabled={moneyLeft[parseInt(ele.team) - 1] <= 0 ? true : false}
+                                                />
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>功能</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
+                                                <Button id={id} size='sm' onClick={handleAddSupporter} style={{ marginRight: '10px' }}>New</Button>
+                                                <Button variant="warning" name={id} disabled={ele.done === 'true' ? false : true} id={(parseInt(ele.team) - 1).toString()} size='sm' onClick={handleAddCost}>Cost</Button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <div style={{ height: '20px' }}></div>
                                 </>
                             ))}
-                        </tbody>
-                        <div style={{ height: '30px' }}></div>
-                    </Table>
+                        </Table>
+                    }
+
                 </>
                 :
                 <AddElement />

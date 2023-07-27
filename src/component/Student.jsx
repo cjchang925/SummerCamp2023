@@ -88,9 +88,9 @@ const Student = () => {
                         <hr />
                         <p style={{ lineHeight: '30px' }}>
                             購買材料之前，"花費"欄位會顯示各小隊填寫的預計花費，購買之後則會顯示隊輔填寫的實際花費。
-                            <br/>
+                            <br />
                             各項目的底色表示重要程度，依照紅、黃、綠、藍、紫的順序排列，而灰色表示該小隊的預算已經花完。
-                            <br/>
+                            <br />
                             Happy hacking!
                         </p>
                     </Alert>
@@ -159,46 +159,85 @@ const Student = () => {
                             </tbody>
                         </Table>
                     }
-                    <Table className="mt-4" bordered hover style={{ width: '80vw', margin: 'auto' }}>
-                        <thead>
-                            <tr>
-                                <th>小隊</th>
-                                <th>名稱</th>
-                                {windowWidth > 900 ? <th>圖片</th> : <></>}
-                                <th>個數</th>
-                                <th>花費</th>
-                                <th>備註</th>
-                                <th>負責隊輔</th>
-                                <th>採購進度</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {list.map((ele, id) => (
-                                <>
+                    {windowWidth > 900 ?
+                        <Table className="mt-4" bordered hover style={{ width: '80vw', margin: 'auto' }}>
+                            <thead>
+                                <tr>
+                                    <th>時間</th>
+                                    <th>小隊</th>
+                                    <th>名稱</th>
+                                    <th>圖片</th>
+                                    <th>個數</th>
+                                    <th>花費</th>
+                                    <th>備註</th>
+                                    <th>負責隊輔</th>
+                                    <th>採購進度</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {list.map((ele, id) => (
                                     <tr key={id}>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.currentTime}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.team}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.name}</td>
-                                        {windowWidth > 900 ? <td style={{ width: '40%', backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td> : <></>}
+                                        <td style={{ width: '30%', backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.number}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.price}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.comment}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.supporter}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.done === 'true' ? <AiOutlineCheck color='green' /> : <RxCross2 color='red' />}</td>
                                     </tr>
-                                    {windowWidth <= 900 ?
-                                        <tr key={id}>
-                                            <td colSpan={8} style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
-                                                <img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} />
-                                            </td>
+                                ))}
+                            </tbody>
+                            <div style={{ height: '30px' }}></div>
+                        </Table>
+                        :
+                        <Table className="mt-4" bordered hover style={{ width: '80%', margin: 'auto' }} size='sm'>
+                            {list.map((ele, id) => (
+                                <>
+                                    <thead key={id}>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>時間</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.currentTime}</td>
                                         </tr>
-                                        :
-                                        <></>
-                                    }
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>小隊</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.team}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>名稱</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>圖片</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%' }} /></td>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>個數</th>
+                                            <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.number}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>花費</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.price}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>備註</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.comment}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>採買隊輔</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.supporter}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>採購進度</th>
+                                            <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.done === 'true' ? <AiOutlineCheck color='green' /> : <RxCross2 color='red' />}</th>
+                                        </tr>
+                                    </thead>
+                                    <div style={{ height: '20px' }}></div>
                                 </>
                             ))}
-                        </tbody>
-                        <div style={{ height: '30px' }}></div>
-                    </Table>
+                        </Table>
+                    }
                 </>
                 :
                 <AddElement />
