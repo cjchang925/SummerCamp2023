@@ -216,6 +216,7 @@ const Supporter = () => {
                         <Table className="mt-4 mb-4" bordered style={{ width: windowWidth > 900 ? '80vw' : '100vw', margin: 'auto' }}>
                             <thead>
                                 <tr>
+                                    <th>時間</th>
                                     <th>小隊</th>
                                     <th>名稱</th>
                                     <th>圖片</th>
@@ -230,6 +231,7 @@ const Supporter = () => {
                             <tbody>
                                 {list.map((ele, id) => (
                                     <tr key={id}>
+                                        <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.currentTime}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.team}</td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>{ele.name}</td>
                                         <td style={{ width: '30%', backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}><img src={ele.imageLink} alt='invalid' style={{ width: '100%', minWidth: '70px' }} /></td>
