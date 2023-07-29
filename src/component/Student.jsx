@@ -38,7 +38,7 @@ const Student = () => {
     }, []);
 
     const getElement = async () => {
-        const response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_element', {
+        const response = await fetch('https://makerealcamp.azurewebsites.net/api/get_element', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ const Student = () => {
     }
 
     const getMoneyLeft = async () => {
-        const response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_money', {
+        const response = await fetch('https://makerealcamp.azurewebsites.net/api/get_money', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

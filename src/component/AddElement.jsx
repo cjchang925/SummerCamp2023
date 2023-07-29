@@ -41,7 +41,7 @@ const AddElement = () => {
 
         const currentTime = getCurrentTimeFormatted();
 
-        await fetch('https://prevexam.dece.nycu.edu.tw/api/add_element', {
+        await fetch('https://makerealcamp.azurewebsites.net/api/add_element', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const AddElement = () => {
     }
 
     const getMoneyLeft = async () => {
-        const response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_money', {
+        const response = await fetch('https://makerealcamp.azurewebsites.net/api/get_money', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

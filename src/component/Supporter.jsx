@@ -36,7 +36,7 @@ const Supporter = () => {
     };
 
     const getMoneyLeft = async () => {
-        const response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_money', {
+        const response = await fetch('https://makerealcamp.azurewebsites.net/api/get_money', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -57,7 +57,7 @@ const Supporter = () => {
     }, []);
 
     const getElement = async () => {
-        let response = await fetch('https://prevexam.dece.nycu.edu.tw/api/get_element', {
+        let response = await fetch('https://makerealcamp.azurewebsites.net/api/get_element', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const Supporter = () => {
             return;
         }
         setShowModal(false);
-        await fetch('https://prevexam.dece.nycu.edu.tw/api/add_supporter', {
+        await fetch('https://makerealcamp.azurewebsites.net/api/add_supporter', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ const Supporter = () => {
             return;
         }
         setShowCostModal(false);
-        await fetch('https://prevexam.dece.nycu.edu.tw/api/add_cost', {
+        await fetch('https://makerealcamp.azurewebsites.net/api/add_cost', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ const Supporter = () => {
     }
 
     const handlePurchase = async (e) => {
-        await fetch('https://prevexam.dece.nycu.edu.tw/api/done', {
+        await fetch('https://makerealcamp.azurewebsites.net/api/done', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -137,7 +137,7 @@ const Supporter = () => {
 
     const handleSureDelete = async (e) => {
         e.preventDefault();
-        await fetch(`https://prevexam.dece.nycu.edu.tw/api/delete_item?id=${nowEditing}`).then(() => alert('刪除成功！'))
+        await fetch(`https://makerealcamp.azurewebsites.net/api/delete_item?id=${nowEditing}`).then(() => alert('刪除成功！'))
         setCheckModal(false);
         setTrigger(!trigger);
     }
