@@ -29,6 +29,7 @@ const Supporter = () => {
     const [trigger, setTrigger] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [moneyLeft, setMoneyLeft] = useState([]);
+    const [checkModal, setCheckModal] = useState(false);
 
     const handleResize = () => {
         setWindowWidth(window.innerWidth);
@@ -81,6 +82,7 @@ const Supporter = () => {
     const handleClose = () => {
         setShowModal(false);
         setShowCostModal(false);
+        setCheckModal(false);
     }
 
     const handleFinishAddingSupporter = async () => {
@@ -128,6 +130,18 @@ const Supporter = () => {
         getMoneyLeft();
     }, [display, trigger])
 
+    const handleDelete = async (e) => {
+        setCheckModal(true);
+        setNowEditing(e.target.id);
+    }
+
+    const handleSureDelete = async (e) => {
+        e.preventDefault();
+        await fetch(`https://prevexam.dece.nycu.edu.tw/api/delete_item?id=${nowEditing}`).then(() => alert('刪除成功！'))
+        setCheckModal(false);
+        setTrigger(!trigger);
+    }
+
     return (
         <>
             <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
@@ -145,6 +159,22 @@ const Supporter = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            <Modal centered show={checkModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>確認刪除</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    是否確認刪除第 {parseInt(nowEditing) + 1} 項?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="danger" onClick={handleSureDelete}>
+                        Yes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             {display === 'list' ?
                 <>
                     <h4 style={{ marginLeft: '10vw', marginTop: '30px' }}>各小隊剩餘金額</h4>
@@ -250,7 +280,8 @@ const Supporter = () => {
                                         </td>
                                         <td style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
                                             <Button id={id} size='sm' onClick={handleAddSupporter} style={{ marginRight: '10px' }}>New</Button>
-                                            <Button variant="warning" name={id} disabled={ele.done === 'true' ? false : true} id={(parseInt(ele.team) - 1).toString()} size='sm' className={windowWidth <= 900 && "mt-2"} onClick={handleAddCost}>Cost</Button>
+                                            <Button variant="warning" name={id} disabled={ele.done === 'true' ? false : true} style={{ marginRight: '10px' }} id={(parseInt(ele.team) - 1).toString()} size='sm' className={windowWidth <= 900 && "mt-2"} onClick={handleAddCost}>Cost</Button>
+                                            <Button id={id} size='sm' variant="danger" disabled={ele.done === 'true' ? true : false} onClick={handleDelete}>Delete</Button>
                                         </td>
                                     </tr>
                                 ))}
@@ -310,7 +341,8 @@ const Supporter = () => {
                                             <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>功能</th>
                                             <th style={{ backgroundColor: moneyLeft[parseInt(ele.team) - 1] <= 0 ? '#ddd' : colorMap[ele.importance] }}>
                                                 <Button id={id} size='sm' onClick={handleAddSupporter} style={{ marginRight: '10px' }}>New</Button>
-                                                <Button variant="warning" name={id} disabled={ele.done === 'true' ? false : true} id={(parseInt(ele.team) - 1).toString()} size='sm' onClick={handleAddCost}>Cost</Button>
+                                                <Button variant="warning" name={id} style={{ marginRight: '10px' }} disabled={ele.done === 'true' ? false : true} id={(parseInt(ele.team) - 1).toString()} size='sm' onClick={handleAddCost}>Cost</Button>
+                                                <Button id={id} size='sm' variant="danger" disabled={ele.done === 'true' ? true : false} onClick={handleDelete}>Delete</Button>
                                             </th>
                                         </tr>
                                     </thead>
